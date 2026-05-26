@@ -6,6 +6,6 @@ scikit-learn
 librosa
 opencv-python-headless
 mediapipe
-tensorflow
+tensorflow-cpu
 numpy
 pandas
