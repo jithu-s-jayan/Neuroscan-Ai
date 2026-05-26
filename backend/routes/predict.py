@@ -1,4 +1,6 @@
 import os
+import time
+import random
 from fastapi import APIRouter, File, UploadFile
 from ml.model import ai_models
 from preprocessing.audio import extract_features
