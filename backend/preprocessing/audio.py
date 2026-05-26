@@ -11,20 +11,18 @@ def extract_features(file_path):
         # Load audio file
         y, sr = librosa.load(file_path, sr=None)
         
-        # Extract MFCCs (13 coefficients)
+        # Extract 13 MFCCs
         mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
         mfccs_mean = np.mean(mfccs.T, axis=0)
         
-        # Approximate Jitter and Shimmer (using zero crossing rate and energy variance as simple proxies for now)
-        # In a full implementation, you would use parselmouth (Praat) for exact acoustic metrics
+        # Extract Spectral Centroid, Bandwidth, and ZCR
+        centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+        bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
         zcr = np.mean(librosa.feature.zero_crossing_rate(y))
-        rms = np.mean(librosa.feature.rms(y=y))
         
-        return {
-            "mfcc_mean": mfccs_mean.tolist(),
-            "zcr": float(zcr),
-            "rms": float(rms)
-        }
+        # Return exact 16 feature array
+        features = np.concatenate([mfccs_mean, [centroid, bandwidth, zcr]])
+        return features
     except Exception as e:
         print(f"Error processing audio: {e}")
         return None

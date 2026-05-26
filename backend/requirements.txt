@@ -9,3 +9,4 @@ mediapipe
 tensorflow-cpu
 numpy
 pandas
+joblib
