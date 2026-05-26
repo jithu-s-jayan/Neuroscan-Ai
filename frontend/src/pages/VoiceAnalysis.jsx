@@ -24,7 +24,7 @@ export default function VoiceAnalysis() {
     try {
       // Import axios at the top if not already imported
       const axios = (await import('axios')).default;
-      const response = await axios.post('http://localhost:8000/api/predict/voice', formData, {
+      const response = await axios.post('https://neuroscan-ai-svg1.onrender.com/api/predict/voice', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

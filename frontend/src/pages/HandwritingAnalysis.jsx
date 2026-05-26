@@ -26,7 +26,7 @@ export default function HandwritingAnalysis() {
 
     try {
       const axios = (await import('axios')).default;
-      const response = await axios.post('http://localhost:8000/api/predict/handwriting', formData, {
+      const response = await axios.post('https://neuroscan-ai-svg1.onrender.com/api/predict/handwriting', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       
