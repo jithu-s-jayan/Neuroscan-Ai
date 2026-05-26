@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+firebase-admin
+scikit-learn
+librosa
+opencv-python-headless
+mediapipe
+tensorflow
+numpy
+pandas
