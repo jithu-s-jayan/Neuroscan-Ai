@@ -8,8 +8,19 @@ def extract_features(file_path):
     Returns MFCCs, jitter, and shimmer approximations.
     """
     try:
-        # Load audio file
-        y, sr = librosa.load(file_path, sr=None)
+        from scipy.io import wavfile
+        
+        # Load audio file using scipy to avoid libsndfile dependency on linux
+        sr, y_int = wavfile.read(file_path)
+        # Convert to float32 between -1 and 1 for librosa
+        if y_int.dtype == np.int16:
+            y = y_int.astype(np.float32) / 32768.0
+        else:
+            y = y_int.astype(np.float32)
+            
+        # Ensure mono
+        if len(y.shape) > 1:
+            y = np.mean(y, axis=1)
         
         # Extract 13 MFCCs
         mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)

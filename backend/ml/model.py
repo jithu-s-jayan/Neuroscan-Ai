@@ -1,4 +1,3 @@
-import tensorflow as tf
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import os
