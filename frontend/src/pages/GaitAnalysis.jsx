@@ -11,12 +11,21 @@ export default function GaitAnalysis() {
   const handleFileUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      setResult(null);
     }
+  };
+
+  const loadSample = () => {
+    const sampleBlob = new Blob(["dummy_video_data"], { type: "video/mp4" });
+    const sampleFile = new File([sampleBlob], "sample_walking_gait.mp4", { type: "video/mp4" });
+    setFile(sampleFile);
+    setResult(null);
   };
 
   const startAnalysis = async () => {
     if (!file) return;
     setAnalyzing(true);
+    setResult(null);
     
     // Simulate Video processing which takes longer
     setTimeout(() => {
@@ -53,7 +62,16 @@ export default function GaitAnalysis() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="glass-panel p-8">
-            <h2 className="text-xl font-semibold mb-6">Upload Walking Video</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold">Upload Walking Video</h2>
+              <button 
+                onClick={loadSample}
+                disabled={analyzing}
+                className="text-xs font-semibold text-accent hover:text-accent-hover bg-accent/10 hover:bg-accent/20 px-3 py-1.5 rounded-lg border border-accent/20 transition-all"
+              >
+                Use Sample Video
+              </button>
+            </div>
             
             <label className="border-2 border-dashed border-white/20 rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:border-accent/50 hover:bg-white/5 transition-all mb-6">
               <UploadCloud className="w-12 h-12 text-accent mb-4" />
